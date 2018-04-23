@@ -36,16 +36,19 @@ namespace UserManagement.Data.Infrastructure
         {
             dbset.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
+            DataContext.SaveChanges();
         }
         public virtual void Delete(T entity)
         {
             dbset.Remove(entity);
+            DataContext.SaveChanges();
         }
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbset.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
                 dbset.Remove(obj);
+            DataContext.SaveChanges();
         }
         public virtual T GetById(long id)
         {

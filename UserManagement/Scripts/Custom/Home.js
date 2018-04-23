@@ -1,7 +1,18 @@
-﻿
-$("#CountryID").change(function () {
+﻿$("#CountryID").change(function () {
+    $("#Country").val($("#CountryID :selected").text());
     CountryChange();
 });
+
+$("#StateID").change(function () {
+    $("#State").val($("#StateID :selected").text());
+    StateChange();
+});
+
+$("#CityID").change(function () {
+    $("#City").val($("#CityID :selected").text());
+});
+
+
 
 function AddProgress(controls) {
     $(controls).each(function (index, control) {
@@ -43,9 +54,7 @@ function CountryChange() {
         RemoveProgress(['CountryID', 'StateID']);
     });
 }
-$("#StateID").change(function () {
-    StateChange();
-});
+
 function StateChange() {
     ChangeStateToInitial(['CityID']);
     var selectedStateID = $("#StateID").val();

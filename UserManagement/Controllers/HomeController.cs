@@ -6,6 +6,7 @@ using UserManagement.Service;
 using UserManagement.Web.Models;
 using PagedList;
 using AutoMapper;
+using UserManagement.Domain;
 
 namespace UserManagement.Web.Controllers
 {
@@ -110,6 +111,43 @@ namespace UserManagement.Web.Controllers
             {
                 return View(model);
             }
+        }
+        public ActionResult Edit(int? id)
+        {
+            var userModel= Mapper.Map<UserManagement.Domain.User,UserViewModel>(userService.GetUser(id.Value));
+            return View(userModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Email,CountryName,StateName,CityName")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Users");
+            }
+            var userModel = userService.GetUser(user.ID);
+            return View(userModel);
+        }
+
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            var userModel = Mapper.Map<UserManagement.Domain.User, UserViewModel>(userService.GetUser(id.Value));
+            return View(userModel);
+        }
+
+        // POST: Users/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            userService.DeleteUser(id);
+            return RedirectToAction("Users");
+        }
+        public ActionResult Details(int? id)
+        {
+            var userModel = Mapper.Map<UserManagement.Domain.User, UserViewModel>(userService.GetUser(id.Value));
+            return View(userModel);
         }
     }
 }

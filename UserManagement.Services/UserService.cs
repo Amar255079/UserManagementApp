@@ -45,6 +45,12 @@ namespace UserManagement.Service
             SaveUser();
         }
 
+        public void UpdateUser(User user)
+        {
+            userRepository.Update(user);
+            SaveUser();
+        }
+
         public void DeleteUser(int id)
         {
             var user = userRepository.GetById(id);

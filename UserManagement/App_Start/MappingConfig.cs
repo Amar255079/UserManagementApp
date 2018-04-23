@@ -13,7 +13,16 @@ namespace UserManagement.App_Start
         {
             AutoMapper.Mapper.Initialize(x =>
             {
-                x.CreateMap<UserViewModel, User>();
+                x.CreateMap<UserViewModel, User>()
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City))
+                .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State))
+                .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country));
+
+
+                x.CreateMap<User,UserViewModel>()
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.CityName))
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.StateName))
+                .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.CountryName));
             });
         }
     }

@@ -36,7 +36,14 @@ namespace UserManagement.Web.Models
         [Display(Name = "City")]
         [Range(1, Int32.MaxValue, ErrorMessage = "City is required")]
         public int? CityID { get; set; }
-        
+
+        [Display(Name ="Country")]
+        public string Country { get; set; }
+        [Display(Name = "State")]
+        public string State { get; set; }
+        [Display(Name = "City")]
+        public string City { get; set; }
+
         public IEnumerable<SelectListItem> Countries { get; set; }
         public IEnumerable<SelectListItem> States { get; set; }
         public IEnumerable<SelectListItem> Cities { get; set; }
